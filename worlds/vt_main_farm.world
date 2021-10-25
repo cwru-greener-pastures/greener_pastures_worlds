@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <world name="default">
+    <scene>
+      <sky>
+        <clouds>
+          <speed>2</speed>
+        </clouds>
+      </sky>
+    </scene>
+    <!-- A global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <model name="heightmap">
+      <static>true</static>
+      <link name="link">
+        <collision name="main_farm_collision">
+          <geometry>
+            <heightmap>
+              <use_terrain_paging>false</use_terrain_paging>
+              <uri>file://worlds/main_farm/new_heightmap_01.png</uri>
+              <size>1032 1032 128</size>
+              <pos>0 0 0</pos>
+            </heightmap>
+          </geometry>
+        </collision>
+        <visual name="main_farm_visual">
+          <geometry>
+            <heightmap>
+              <use_terrain_paging>false</use_terrain_paging>
+              <texture>
+                <diffuse>file://worlds/main_farm/new_texture.png</diffuse>
+                <normal>file://media/materials/textures/flat_normal.png</normal>
+                <size>1032</size>
+              </texture>
+              <uri>file://worlds/main_farm/new_heightmap_01.png</uri>
+              <size>1032 1032 128</size>
+              <pos>0 0 0</pos>
+            </heightmap>
+          </geometry>
+        </visual>
+      </link>
+    </model>
+    <spherical_coordinates>
+      <latitude_deg>37.22503824716618226</latitude_deg>
+      <longitude_deg>-80.43857527666618523</longitude_deg>
+    </spherical_coordinates>
+  </world>
+</sdf>
