@@ -18,8 +18,9 @@
         <collision name="shenandoah_farm_collision">
           <geometry>
             <heightmap>
-              <uri>file://worlds/shenandoah_farm/new_heightmap_01.png</uri>
-              <size>1032 1032 128</size>
+              <use_terrain_paging>false</use_terrain_paging>
+              <uri>file://worlds/shenandoah_farm/heightmap_129b.tiff</uri>
+              <size>2056 2056 128</size>
               <pos>0 0 0</pos>
             </heightmap>
           </geometry>
@@ -29,22 +30,17 @@
             <heightmap>
               <use_terrain_paging>false</use_terrain_paging>
               <texture>
-                <diffuse>file://worlds/shenandoah_farm/new_texture.png</diffuse>
+                <diffuse>file://worlds/shenandoah_farm/texture_2056.png</diffuse>
                 <normal>file://media/materials/textures/flat_normal.png</normal>
-                <size>1025</size>
+                <size>2056</size>
               </texture>
-              <uri>file://worlds/shenandoah_farm/new_heightmap_01.png</uri>
-              <size>1032 1032 128</size>
+              <uri>file://worlds/shenandoah_farm/heightmap_129b.tiff</uri>
+              <size>2056 2056 128</size>
               <pos>0 0 0</pos>
             </heightmap>
           </geometry>
         </visual>
       </link>
     </model>
-    <spherical_coordinates>
-      <latitude_deg>37.93357881824079669</latitude_deg>
-      <longitude_deg>-79.21871033382075211</longitude_deg>
-      <elevation>0.0</elevation>
-    </spherical_coordinates>
   </world>
 </sdf>
