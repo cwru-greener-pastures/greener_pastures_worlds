@@ -1,7 +1,7 @@
 <launch>
 
-    <arg name="vt_world" default="blacksburg" />
-    <arg name="world_name" default="$(find greener_pastures_worlds)/worlds/vt_$(arg vt_world)_farm.world" />
+    <arg name="vt_world" default="blacksburg" doc="The specific VT Farm to launch [blacksburg|middleburg|shenandoah]" />
+    <arg name="world_name" default="$(find greener_pastures_worlds)/worlds/vt_$(arg vt_world)_farm.world" doc="Absolute path to a world file.  Overrides vt_world."/>
 
     <arg name="paused" default="false"/>
     <arg name="use_sim_time" default="true"/>
