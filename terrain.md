@@ -24,11 +24,11 @@ There is one more step, Gazebo requires heightmaps to have one band and the QGIS
 
 As mentioned, Gazebo requires heightmap files have one band.  The GeoTIFF files contain coordinate information that is used by Gazebo so that GPS simulation will return correct location.
 
-The files are scaled in Gazebo to be accurately represented.  For instance, in the Shenandoah world, the custom file for the environment is 1028 square.  The source data is of one meter square resolution.  This means that the heightmap and texture files must be scaled to 1028.  The Z-axis in the heighmap file, however, is different.  
+The files are scaled in Gazebo to be accurately represented.  For instance, in the Blacksburg world, the custom file for the environment is 2056 pixels square.  This The source data is of approximately one meter square resolution.  This is approximate, and the actual resolution is 2138x2138 meters.  This means that the heightmap and texture files must be scaled to 2138.  The Z-axis in the heighmap file, however, is different.  
 
-The height of the heightmap is scaled from minimum to maximum of the source data.  In the QGIS workspace, the heightmap is scaled between two heights.  The difference between the maximum and minimum height in the generated heightmap for Shenandoah is 128 m.  That is why the 128 is in the Z scaling location for the heightmaps.  
+The height of the heightmap is scaled from minimum to maximum of the source data.  It appears that the heightmap in the file is 0 to 1.  Typically, GeoTIFF files also include metadata about the maximum and minimum to allso the height to be reproduced, however, that data is committed when saving the files in QGIS.  The difference between the maximum and minimum height in the generated heightmap for Blacksburg is 64 m.  That is why the 64 is in the Z scaling location for the heightmaps.  
 
-There does seem to be an issue with elevation.  It seems to be based on the adjusted information in the new heightmap.  It may not be accurate.
+There does seem to be an issue with elevation that is derived from this.  Elevation seems to be based on the adjusted information in the new heightmap.  It may not be accurate for the absolute elevation of the location.  This may need to be addressed in the future for GPS simulation, though, a constant offset should not actually cause issues.
 
 # Summary
 

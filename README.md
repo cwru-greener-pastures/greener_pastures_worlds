@@ -4,6 +4,6 @@ The `greener_pasture_worlds` package provides Gazebo simulations of various Virg
 
 ## Launch
 There are currently two VT Farms that are included in this project.   They may both be launch using the same launch file in this package, `vt_farm.launch`.  To launch the simulations, use the following command:
->`roslaunch greener_pastures_worlds vt_farm.launch vt_world:=main`
+>`roslaunch greener_pastures_worlds vt_farm.launch vt_world:=blacksburg`
 
-- `vt_world` -- The specific VT Farm to launch [*`main`*`|shenandoah`]
+- `vt_world` -- The specific VT Farm to launch [*`blacksburg`*`|shenandoah`]

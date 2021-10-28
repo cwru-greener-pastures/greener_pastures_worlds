@@ -1,6 +1,6 @@
 <launch>
 
-    <arg name="vt_world" default="main" />
+    <arg name="vt_world" default="blacksburg" />
     <arg name="world_name" default="$(find greener_pastures_worlds)/worlds/vt_$(arg vt_world)_farm.world" />
 
     <arg name="paused" default="false"/>
