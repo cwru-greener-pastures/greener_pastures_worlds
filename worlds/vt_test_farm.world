@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <world name="default">
+    <scene>
+      <sky>
+        <clouds>
+          <speed>2</speed>
+        </clouds>
+      </sky>
+    </scene>
+    <!-- A global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <model name="vt_test_terrain">
+      <static>true</static>
+      <link name="vt_test_terrain_link">
+        <collision name="vt_test_terrain_collision">
+          <geometry>
+            <image>
+              <uri>file://worlds/test_farm/image.png</uri>
+              <scale>257</scale>
+              <granularity>257</granularity>
+            </image>
+          </geometry>
+        </collision>
+        <visual name="vt_test_terrain_visual">
+          <geometry>
+            <image>
+              <uri>file://worlds/test_farm/image.png</uri>
+              <scale>257</scale>
+              <granularity>257</granularity>
+            </image>
+          </geometry>
+        </visual>
+      </link>
+    </model>
+  </world>
+</sdf>

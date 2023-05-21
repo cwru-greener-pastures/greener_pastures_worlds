@@ -19,9 +19,8 @@
           <geometry>
             <heightmap>
               <use_terrain_paging>false</use_terrain_paging>
-              <uri>file://worlds/middleburg_farm/heightmap_129b.tiff</uri>
-              <size>1661 1661 64</size>
-              <pos>0 0 0</pos>
+              <uri>file://worlds/middleburg_farm/heightmap.tif</uri>
+              <pos>0 0 -123</pos>
             </heightmap>
           </geometry>
         </collision>
@@ -30,13 +29,12 @@
             <heightmap>
               <use_terrain_paging>false</use_terrain_paging>
               <texture>
-                <diffuse>file://worlds/middleburg_farm/texture_2056.png</diffuse>
+                <diffuse>file://worlds/middleburg_farm/texture.tif</diffuse>
                 <normal>file://media/materials/textures/flat_normal.png</normal>
-                <size>1661</size>
+                <size>2056</size>
               </texture>
-              <uri>file://worlds/middleburg_farm/heightmap_129b.tiff</uri>
-              <size>1661 1661 64</size>
-              <pos>0 0 0</pos>
+              <uri>file://worlds/middleburg_farm/heightmap.tif</uri>
+              <pos>0 0 -123</pos>
             </heightmap>
           </geometry>
         </visual>

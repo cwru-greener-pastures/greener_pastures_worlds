@@ -12,31 +12,29 @@
     <include>
       <uri>model://sun</uri>
     </include>
-    <model name="heightmap">
+    <model name="vt_blacksburg_terrain">
       <static>true</static>
-      <link name="link">
-        <collision name="blacksburg_farm_collision">
+      <link name="vt_blacksburg_terrain_link">
+        <collision name="vt_blacksburg_terrain_collision">
           <geometry>
             <heightmap>
               <use_terrain_paging>false</use_terrain_paging>
-              <uri>file://worlds/blacksburg_farm/heightmap_257b_alt.tiff</uri>
-              <size>2138 2138 64</size>
-              <pos>0 0 0</pos>
+              <uri>file://worlds/blacksburg_farm/heightmap.tif</uri>
+              <pos>0 0 -86</pos>
             </heightmap>
           </geometry>
         </collision>
-        <visual name="blacksburg_farm_visual">
+        <visual name="vt_blacksburg_terrain_visual">
           <geometry>
             <heightmap>
               <use_terrain_paging>false</use_terrain_paging>
               <texture>
-                <diffuse>file://worlds/blacksburg_farm/texture_1028.png</diffuse>
+                <diffuse>file://worlds/blacksburg_farm/texture.tif</diffuse>
                 <normal>file://media/materials/textures/flat_normal.png</normal>
-                <size>2138</size>
+                <size>2056</size>
               </texture>
-              <uri>file://worlds/blacksburg_farm/heightmap_257b_alt.tiff</uri>
-              <size>2138 2138 64</size>
-              <pos>0 0 0</pos>
+              <uri>file://worlds/blacksburg_farm/heightmap.tif</uri>
+              <pos>0 0 -86</pos>
             </heightmap>
           </geometry>
         </visual>

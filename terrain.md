@@ -19,34 +19,84 @@ QGIS is available from the standard Ubuntu repository.  It seems to be very far 
 
 Some basic alteration of the GeoTIFF files produced by QGIS was necessary to get them into the form Gazebo can use.  Gazebo requires heightmap files to be square and of 2n+1 in resolution.  There are layouts in the QGIS files that generate square files of the appropriate sizes.
 
-For example, the Shenandoah farm heightmap is 257x257.  The GeoTIFF produced by QGIS is 1028x1028.  This resizes without interpolation to 257x257.  To accomplish this:
->`gdal_warp -ts 257 257 heightmap_1028.tiff heightmap_257.tiff`
+For example, the Shenandoah farm heightmap is 257x257.  The GeoTIFF produced by QGIS is 1028x1028.  This resizes without interpolation to 257x257.  To accomplish this using the GDAL `gdalwarp` tool, use the following command:
+>`gdalwarp -ts 257 257 heightmap_output.tif heightmap_257.tif`
 
-There is one more step, Gazebo requires heightmaps to have one band and the QGIS files have four (even though they are greyscale).  The first band in the file (for red) is used to create a one band file also using GDAL.
->`gdal_translate -b 1 heightmap_257.tiff heightmap_257b.tiff`
+There is one more step, Gazebo requires heightmaps to have one band and the QGIS files have four (even though they are greyscale).  The red band in the file (band 1) is used to create a one band file also using GDAL, though the green and the blue band could be used (band 2 & 3, respectively).  The GDAL tool, `gdal_translate`, is used in the following way:
+>`gdal_translate -b 1 -colorinterp gray heightmap_257.tif heightmap.tif`
+
+This can now be accomplished with one command:
+>`gdal_translate -outsize 257 257 -b 1 -colorinterp gray heightmap_output.tif heightmap.tif`
+
+In order to shift the heightmap down to the origin, it is necessary to know what the elevation of the heightmap will be at the origint.  This will be at 128,128 in the `heightmap.tif` file.  This can be found using GDAL as well.
+>`gdallocationinfo heightmap.tif 128 128`
+
+Use the value from this to shift the `heightmap` `collision` and `visual` entities down that far.  This is in the `<pos>` element of the `.world` file. 
 
 ### Acquisition
 
 GDAL is available for the standard Ubuntu repositories.  Like many of the utilities from the Ubuntu repositories, they are a little bit behind the current releases.
 >`sudo apt-get install gdal-bin gdal-data`
 
+The tools are automatically installed using `rosdep` for the `greener_pastures_worlds` ROS package.
+
 GDAL is available for Windows (and is included in the the QGIS system). 
 
 ## Gazebo
 
-As mentioned, Gazebo requires heightmap files have one band.  The GeoTIFF files contain coordinate information that is used by Gazebo so that GPS simulation will return correct location.
+As mentioned, Gazebo requires heightmap files have one band and are of size 2n+1 square.  The GeoTIFF heightmap files contain coordinate information that is used by Gazebo so that GPS simulation will return correct location.
 
-The files are scaled in Gazebo to be accurately represented.  For instance, in the Blacksburg world, the custom file for the environment is 1028 pixels square.  This The source data is of approximately one meter square resolution.  This is approximate, and the actual resolution is 2138x2138 meters.  This means that the heightmap and texture files must be scaled to 2138.  The Z-axis in the heighmap file, however, is different.  
-
-The height of the heightmap is scaled from minimum to maximum of the source data.  It appears that the heightmap in the file is 0 to 1.  Typically, GeoTIFF files also include metadata about the maximum and minimum to allso the height to be reproduced, however, that data is committed when saving the files in QGIS.  The difference between the maximum and minimum height in the generated heightmap for Blacksburg is 64 m.  That is why the 64 is in the Z scaling location for the heightmaps.  
-
-There does seem to be an issue with elevation that is derived from this.  Elevation seems to be based on the adjusted information in the new heightmap.  It may not be accurate for the absolute elevation of the location.  This may need to be addressed in the future for GPS simulation, though, a constant offset should not actually cause issues.
+The heightmap files contain all the information to be rendered at the correct scale in Gazebo.  The texture files also contain all the same information, however, Gazebo does not use that information.  The `.world` must include a `size` element for the texture in order for it map the texture over the `heightmap` correctly.  See the GDAL section on how to accomplish this
 
 Another significant issue that seems to have plagued Gazebo for a long time is that the `collision` and the `visual` elements generated from the heightmap images are not alway identical.  If an object sits below the surface or floats in the air, then the glitch is being observed.  
 
 So far, higher resolution data seems to minimize this issue.
 
-## Data Sources
+## Dataservers
+
+The data for these maps can be served to QGIS.  Below are the server and server types.  These data servers are public and require not credentials to use.
+
+### USGS 1M 3DEP Digital Elevation Maps
+
+Server URL: ```https://elevation.nationalmap.gov/arcgis/services/3DEPElevation/ImageServer/WMSServer```
+
+Layer(s) Used:
+- `3DEPElevation`:  The grey scale Digital Elevation Map used to generate the heightmap for Gazebo.
+- `3DEPElevation:Aspect Map`: The multi-colored image that indicate the slope and direction at a location. 
+
+### USGS NAIP Plus
+
+Server URL: ```https://imagery.nationalmap.gov/arcgis/services/USGSNAIPPlus/ImageServer/WMSServer```
+
+Layer(s) Used:
+- `USGSNAIPPLUS`:  Current highest resolution satellite images.
+
+### USGS Transportation
+
+Server URL: ```https://carto.nationalmap.gov/arcgis/services/transportation/MapServer/WMSServer```
+
+Layer(s) Used:
+- `Large and Medium-Scaled-Features`: 
+  - All the available layers are included, but not always used.
+
+### USGS Wetlands
+
+Server URL: ```https://fwspublicservices.wim.usgs.gov/wetlandsmapservice/services/WetlandsTopo/WetlandsTopoService/MapServer/WMSServer```
+
+Layer(s) Used: 
+- `Inland Waters Topo Service`:  Lakes, rivers, ponds, etc.
+
+### USGS Imperviousness
+
+Server URL: ```https://www.mrlc.gov/geoserver/NLCD_Impervious/wms```
+
+Layer(s) Used:  
+- `NLCD_2019_Impervious_L48`: Measurements of ground imperviouness.
+
+
+## Static Data Sources
+
+The source images can be downloaded and statically added to a project.  These files are large and the process to find and download them can be a bit tedious.  The project was upgraded to use servers to load the most recent data.  This documentation is being kept for completeness.
 
 Most of the source data for the Virginia Tech farm pasture virtual environments came from the USGS.  There is a "Data Download" interface that allows one to search for geographic locations.
 >[https://apps.nationalmap.gov/downloader/](https://apps.nationalmap.gov/downloader/)
@@ -61,7 +111,7 @@ The source imagery is from the Nation Agriculure Imagery Project (NAIP).  It is 
 
 ### Blacksburg
 
--80.435°‎, 37.221°‎
+-80.435°, 37.221°
 
 #### 3DEP Data
 
@@ -84,7 +134,7 @@ https://www.sciencebase.gov/catalog/item/59eb3810e4b0026a55ff619e
 
 ### Middleburg
 
--77.74°‎, 38.95°‎
+-77.74°, 38.95°
 
 #### 3DEP
 
@@ -98,7 +148,7 @@ https://www.sciencebase.gov/catalog/item/59eb385be4b0026a55ff6952
 
 ### Shenandoah
 
--79.21°‎, 37.93°‎
+-79.21°, 37.93°
 
 #### 3DEP
 
