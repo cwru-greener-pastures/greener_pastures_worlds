@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <world name="default">
+    <scene>
+      <sky>
+        <clouds>
+          <speed>2</speed>
+        </clouds>
+      </sky>
+    </scene>
+    <!-- A global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <spherical_coordinates>
+      <longitude_deg>37.221</longitude_deg>
+      <latitude_deg>-80.435</latitude_deg>
+      <elevation>617.108459</elevation>
+    </spherical_coordinates>
+    <model name="vt_blacksburg_terrain">
+      <pose>0 0 -23.46 0 0 0</pose>
+      <static>true</static>
+      <link name="vt_blacksburg_terrain_link">
+        <collision name="vt_blacksburg_terrain_collision">
+          <geometry>
+            <mesh>
+              <uri>file://worlds/blacksburg_2_farm/heightmap.dae</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name="vt_blacksburg_terrain_visual">
+          <geometry>
+            <mesh>
+              <uri>file://worlds/blacksburg_2_farm/heightmap.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+      </link>
+    </model>
+  </world>
+</sdf>
